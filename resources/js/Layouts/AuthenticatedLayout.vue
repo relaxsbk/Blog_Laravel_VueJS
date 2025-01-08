@@ -40,8 +40,8 @@ const showingNavigationDropdown = ref(false);
                                     Посты
                                 </NavLink>
                                 <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('MyPosts')"
+                                    :href="route('myPosts')"
+                                    :active="route().current('myPosts')"
                                 >
                                     Мои посты
                                 </NavLink>
