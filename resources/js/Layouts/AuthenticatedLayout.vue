@@ -37,8 +37,15 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
-                                    Dashboard
+                                    Посты
                                 </NavLink>
+                                <NavLink
+                                    :href="route('dashboard')"
+                                    :active="route().current('MyPosts')"
+                                >
+                                    Мои посты
+                                </NavLink>
+
                             </div>
                         </div>
 
