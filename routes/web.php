@@ -15,13 +15,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//
+//Route::get('/dashboard', function () {
+//    return Inertia::render('Dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::controller(PostController::class)->middleware(['auth'])->group(function () {
+    Route::get('/dashboard', 'dashboard')->name('dashboard');
     Route::get('/my', 'index')->name('myPosts');
     Route::post('/create', 'store')->name('createPost');
+    Route::delete('/post/{id}', 'destroy')->name('deletePost');
 });
 
 Route::middleware('auth')->group(function () {

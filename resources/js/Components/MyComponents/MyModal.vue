@@ -13,6 +13,21 @@
         content: ''
     })
 
+    function addPost() {
+        form.post(route('createPost'), {
+            onSuccess: () => closeModal(),
+            onFinish: () => form.reset(),
+        })
+    }
+
+    const closeModal = () => {
+        open.value = false;
+
+        form.clearErrors();
+        form.reset();
+    }
+
+
 </script>
 
 <template>
@@ -24,7 +39,7 @@
             <button @click="open = false" class="text-white mb-2 ">Закрыть</button>
             <div class="bg-white w-2/6 px-4 py-4 rounded-lg flex flex-col gap-4">
                 <h1 class="text-3xl text-center">Форма заполнения</h1>
-                <form @submit.prevent="form.post(route('createPost'))">
+                <form >
                     <MyInput
                         id="title"
                         type="text"
@@ -38,7 +53,7 @@
                         v-model="form.content"
 
                     />
-                    <PrimaryButton :disabled="form.processing"> Отправить </PrimaryButton>
+                    <PrimaryButton @click="addPost" :disabled="form.processing"> Отправить </PrimaryButton>
                 </form>
 
             </div>
