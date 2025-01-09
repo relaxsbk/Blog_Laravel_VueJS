@@ -2,8 +2,17 @@
     import {ref} from "vue";
     import TextInput from "@/Components/TextInput.vue";
     import PrimaryButton from "@/Components/PrimaryButton.vue";
+    import {useForm} from "@inertiajs/vue3";
+    import MyInput from "@/Components/MyComponents/MyInput.vue";
+    import MyTextarea from "@/Components/MyComponents/MyTextarea.vue";
 
     const open = ref(false)
+
+    const form = useForm({
+        title: '',
+        content: ''
+    })
+
 </script>
 
 <template>
@@ -15,10 +24,23 @@
             <button @click="open = false" class="text-white mb-2 ">Закрыть</button>
             <div class="bg-white w-2/6 px-4 py-4 rounded-lg flex flex-col gap-4">
                 <h1 class="text-3xl text-center">Форма заполнения</h1>
-                <TextInput v-model="test" />
-                <TextInput v-model="test" />
-                <TextInput v-model="test" />
-                <PrimaryButton> Отправить </PrimaryButton>
+                <form @submit.prevent="form.post(route('createPost'))">
+                    <MyInput
+                        id="title"
+                        type="text"
+                        v-model="form.title"
+                        required
+                        autofocus
+                        autocomplite="title"
+                    />
+                    <MyTextarea
+                        id="content"
+                        v-model="form.content"
+
+                    />
+                    <PrimaryButton :disabled="form.processing"> Отправить </PrimaryButton>
+                </form>
+
             </div>
         </div>
     </Teleport>
