@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Posts\PostStoreRequest;
+use App\Http\Requests\Posts\PostUpdateRequest;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -32,6 +33,15 @@ class PostController extends Controller
     public function store(PostStoreRequest $request)
     {
         auth()->user()->posts()->create($request->validated());
+
+        return to_route('myPosts');
+    }
+
+    public function update(PostUpdateRequest $request, $post)
+    {
+        $post = Posts::query()->findOrFail($post);
+
+        $post->update($request->validated());
 
         return to_route('myPosts');
     }

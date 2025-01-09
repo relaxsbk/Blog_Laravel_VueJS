@@ -24,7 +24,9 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function (
     Route::get('/dashboard', 'dashboard')->name('dashboard');
     Route::get('/my', 'index')->name('myPosts');
     Route::post('/create', 'store')->name('createPost');
+    Route::patch('/post/{id}', 'update')->name('updatePost');
     Route::delete('/post/{id}', 'destroy')->name('deletePost');
+
 });
 
 Route::middleware('auth')->group(function () {
