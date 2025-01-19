@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,6 +18,10 @@ use Inertia\Inertia;
 //});
 
 Route::get('/', [HomeController::class, '__invoke'])->name('home');
+
+Route::controller(UserController::class)->group(function () {
+    Route::post('/auth', 'login')->name('Login.User');
+});
 
 //
 //Route::get('/dashboard', function () {
@@ -38,4 +43,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Breeze (переписан логин и взаимодействие с почтой)
 require __DIR__.'/auth.php';
