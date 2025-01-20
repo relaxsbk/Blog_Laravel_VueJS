@@ -2,6 +2,7 @@
 
 import ButtonDrawer from "@/Components/MyComponents/drawer/ButtonDrawer.vue";
 import Drawer from "@/Components/MyComponents/drawer/Drawer.vue";
+import {Link} from "@inertiajs/vue3";
 </script>
 
 <template>
@@ -24,7 +25,16 @@ import Drawer from "@/Components/MyComponents/drawer/Drawer.vue";
                         <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Мои посты</a>
                     </li>
                     <li>
-                        <a :href="route('dashboard')" class="block py-2 px-3 text-black rounded md:bg-transparent  md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Dashboard</a>
+                        <Link :href="route('dashboard')" class="block py-2 px-3 text-black rounded md:bg-transparent  md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Dashboard</Link>
+                    </li>
+                    <li>
+                        <Link
+                            :href="route('Logout.User')"
+                            method="post"
+                            class="block py-2 px-3 text-red-700 rounded md:bg-transparent  md:p-0 dark:text-white md:dark:text-blue-500"
+                            aria-current="page">
+                            Выход
+                        </Link>
                     </li>
 
                     <li>

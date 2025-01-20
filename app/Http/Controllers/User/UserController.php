@@ -21,8 +21,14 @@ class UserController extends Controller
         return to_route('home')->with(['success' => 'Успешный вход']);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        Auth::logout();
 
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return to_route('home')->with(['success' => 'Вы успешно вышли из аккаунта !']);
     }
 }

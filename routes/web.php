@@ -21,6 +21,7 @@ Route::get('/', [HomeController::class, '__invoke'])->name('home');
 
 Route::controller(UserController::class)->group(function () {
     Route::post('/auth', 'login')->name('Login.User');
+    Route::post('/log', 'logout')->name('Logout.User');
 });
 
 //
