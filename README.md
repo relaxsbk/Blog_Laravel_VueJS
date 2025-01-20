@@ -121,5 +121,65 @@ public function share(Request $request): array
 </div>
 ```
 
+---
+
+# Отправка писем
+### В данном ситуации использовался новый почтовый ящик Яндекса, в env прописаны ключевые данные. 
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.yandex.ru
+MAIL_PORT='который указан у яндекса'
+MAIL_USERNAME="Ваша почта"
+MAIL_PASSWORD="Пароль который указал яндекс"
+MAIL_FROM_ADDRESS="Дублирование вашей почты"
+MAIL_FROM_NAME="${APP_NAME}"
+```
+## Вызов класса в конце метода для отправки письма
+
+```php
+// отправка на свою же почту(решение не в продакшн)
+Mail::to(env('MAIL_USERNAME'))->send(new LoginUserAccount($email));
+```
+>### Создание класса mail с шаблоном
+```bash
+php artisan make:mail User/LoginUserAccount -m
+```
+
+## Класс от Mailable
+>### В нём конструктор нужен для передачи данных, остальное редактируется только по документации
+```php
+class LoginUserAccount extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    /**
+     * Create a new message instance.
+     */
+    public function __construct(
+        public string $email,
+    )
+    {}
+
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            subject: 'Login User Account',
+        );
+    }
+
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {
+        return new Content(
+            markdown: 'mail.user.login-user-account',
+        );
+    }
+```
 
 
