@@ -152,28 +152,20 @@ php artisan make:mail User/LoginUserAccount -m
 class LoginUserAccount extends Mailable
 {
     use Queueable, SerializesModels;
-
-    /**
-     * Create a new message instance.
-     */
+  
     public function __construct(
         public string $email,
     )
     {}
 
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
         return new Envelope(
+            // Название письма
             subject: 'Login User Account',
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
     public function content(): Content
     {
         return new Content(
@@ -181,5 +173,21 @@ class LoginUserAccount extends Mailable
         );
     }
 ```
+>### Объявление компонентов, для их замены и стилизации
+```bash
+php artisan vendor:publish --tag=laravel-mail
+```
+>### Для локальной стилизации письма, используется роутинг 
+
+```php
+
+Route::get('/mailable', function () {
+    //Нужна модель
+    $user = App\Models\User::find(1);
+    //Передача данных в письмо
+    return new \App\Mail\User\LoginUserAccount($user->email);
+});
+```
+
 
 
