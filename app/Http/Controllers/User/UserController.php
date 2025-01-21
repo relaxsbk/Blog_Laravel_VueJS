@@ -21,7 +21,7 @@ class UserController extends Controller
             return back()->with(['errors'=> 'Ошибка авторизации']);
         }
         // отправка на свою же почту(решение не в продакшн)
-        Mail::to(env('MAIL_USERNAME'))->send(new LoginUserAccount($email));
+//        Mail::to(env('MAIL_USERNAME'))->send(new LoginUserAccount($email));
 
         return to_route('home')->with(['success' => 'Успешный вход']);
     }

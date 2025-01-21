@@ -188,6 +188,19 @@ Route::get('/mailable', function () {
     return new \App\Mail\User\LoginUserAccount($user->email);
 });
 ```
+# Работа с Очередями (Queue, Jobs)
 
+>## Для работы с очередями нужно сделать миграции (таблица Jobs, просто посмотреть список artisan queue), а так же указать в ENV нужный формат - database или Redis
+```dotenv
+QUEUE_CONNECTION=database
+```
+>## Для выполнения очередей используется следующая команда:
 
+```bash
+php artisan queue:work
+```
 
+>## Для отправки письма очередью уже всё доступно в одном классе, нужно имплементироваться от класса ShouldQueue
+```php
+class LoginUserAccount extends Mailable implements ShouldQueue
+```
